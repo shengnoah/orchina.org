@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OpenResty China 博客选 &raquo; 关于</title>
+
+  {(meta.html)}
+</head>
+<body data-controller-name="sessions">
+{(header.html)}
+
+<div id="main" class="main-container container">
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">关于</div>
+                <div class="panel-body">
+                   <div class="panel-body markdown">
+                        <article>
+                            <h2 id="这里是 OpenResty 中文平台">这里是 OpenResty 中文平台</h2>
+                            <ul>
+                                <li>分享OpenResty相关技术<br></li>
+                                <li>欢迎原创文章，也欢迎各种技术交流</li>
+                                <li>本站基于<a href="https://github.com/sumory/lor">Lor Framework</a>构建，Lor是一个基于OpenResty的开发框架</li>
+                            </ul>
+
+			    <p><h5>“公益行为应当成为一种生活方式，需要从身边的人和能做的事开始践行，这才是其初衷所在。” ---  
+				    罗永浩
+			    </h5></p>
+
+			    <!--
+			    <p>OpenResty相对于其它语言或是平台来说，它的规模还较小，不过已在高速发展中。本平台致力于推广和普及OpenResty相关技术，并提供给开发者一个好用的技术交流平台。 </p>
+                            -->
+<pre>
+产品维护人员列表：
+                            
+主开发：   @sumory 
+前端开发： @sinchang @小朱 (@zfjoy520)
+主站维护： @candy @小雨
+特别感谢： @小哲
+升级履历：
+2016.03.28 1.加入翻页滚屏到页首。 
+             by @zfjoy520 
+
+2016.04.08 1.对应titled在edit状态下的问题。
+           2.扩容帖子的最大字数。   
+           3.修改MarkDown中代码的主题颜色。
+             by @candy
+
+2016.04.10 1.添加 应用 分类。
+           2.对应edit模板的变量拼写问题。
+             by @candy
+
+2016.04.27 1.修改boostrap造成的布局混乱问题。
+             by @candy
+
+2016.05.12 1.修改前端代码，在编辑页里添加"tags"和"原文连接"输入框。
+	     by @sinchang
+
+2016.05.27 1.对应db.lua的sql判空处理。
+           2.对应评论数删减计数。
+	     by @sumory
+</pre>                            
+
+<pre>
+使用OpenResty的厂商
+    悠云 一体化Ops平台
+</pre>
+
+<p>感谢小伙伴们的友情赞助！<br/><img height="200" width="200" src="http://orchina-img.stor.sinaapp.com/orange.jpg" alt="友情赞助！" /> </p>
+
+
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        APP.Common.resetNav("nav-about");
+    });
+</script>
+{(footer.html)}
+</body>
+</html>
