@@ -76,6 +76,17 @@
 
         page: function (result, type, pageNo) {
             var data = result.data || {};
+
+
+
+	    var $container1 = $("#topics-body-news");
+            $container1.empty();
+
+            var tpl1 = $("#topic-item-tpl-news").html();
+            var html1 = juicer(tpl1, data);
+            $container1.html(html1);
+
+
             var $container = $("#topics-body");
             $container.empty();
 
@@ -83,9 +94,21 @@
             var html = juicer(tpl, data);
             $container.html(html);
 
+
+/*
+	    var $container1 = $("#topics-body-news");
+            $container1.empty();
+
+            var tpl1 = $("#topic-item-tpl-news").html();
+            var html1 = juicer(tpl1, data);
+            $container1.html(html1);
+*/	    
+
+
             var currentPage = data.currentPage;
             var totalPage = data.totalPage;
             var totalCount = data.totalCount;
+	    var news = data.news;
 
             if (totalPage > 1) {
                 $("#pagebar").show();
@@ -95,6 +118,7 @@
                     totalcount: totalCount,
                     pagebarCssName: 'pagination2',
                     currentPage: currentPage,
+		    news: news,
                     onClickPage: function (pageNo) {
                         $.fn.setCurrentPage(this, pageNo);
                         $.ajax({
@@ -110,12 +134,32 @@
                             dataType: 'json',
                             success: function (result) {
                                 var data = result.data || {};
+
+
+                                var $container1 = $("#topics-body-news");
+                                $container1.empty();
+                    
+                                var tpl1 = $("#topic-item-tpl-news").html();
+                                var html1 = juicer(tpl1, data);
+                                $container1.html(html1);
+
+
                                 var $container = $("#topics-body");
                                 $container.empty();
 
                                 var tpl = $("#topic-item-tpl").html();
                                 var html = juicer(tpl, data);
                                 $container.html(html);
+
+				/*
+                                var $container1 = $("#topics-body-news");
+                                $container1.empty();
+                    
+                                var tpl1 = $("#topic-item-tpl-news").html();
+                                var html1 = juicer(tpl1, data);
+                                $container1.html(html1);
+				*/
+
                                // _this.scrollTop();
                             },
                             error: function () {
