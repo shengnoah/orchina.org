@@ -12,6 +12,17 @@ local error_router = require("app.routes.error")
 
 return function(app)
 
+--[[    
+    app:get("/jd_root.txt", function(req, res, next)
+        ngx.header['Content-Type'] = 'text/plain; charset=UTF-8'
+        ngx.say("e95d2f4a675fe6f2dc7e74d53c171cf89e470ebcc12b51b0")
+        --res:send("e95d2f4a675fe6f2dc7e74d53c171cf89e470ebcc12b51b0")
+    end)
+--]]
+    app:get("/bugfeel.txt", function(req, res, next)
+	    res:send("f124fd1737479b581620dd49b178d86e")
+    end)
+
     app:use("/auth", auth_router())
     app:use("/error", error_router())
     app:use("/user", user_router())
@@ -23,13 +34,17 @@ return function(app)
     app:use("/notification", notification_router())
     app:use("/upload", upload_router())
 
+
     app:get("/", common_router.index)
+    --app:get("/", auth_router)
+    --app:use("/auth", auth_router())
     app:get("/index", common_router.index)
     app:get("/share", common_router.share)
     app:get("/ask", common_router.ask)
     app:get("/settings", common_router.settings)
     app:get("/about", common_router.about)
     app:get("/app", common_router.app)
+    app:get("/news", common_router.news)
 
 end
 

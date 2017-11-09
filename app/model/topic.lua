@@ -42,8 +42,7 @@ function topic_model:get(id)
     	" where t.id=?", {tonumber(id)})
 end
 
-
-function topic_model:get_all(topic_type, category, page_no, page_size)
+function topic_model:get_news(topic_type, category, page_no, page_size)
 	page_no = tonumber(page_no)
 	page_size = tonumber(page_size)
 	category = tonumber(category)
@@ -88,6 +87,84 @@ function topic_model:get_all(topic_type, category, page_no, page_size)
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
+				" order by t.id desc limit ?,?",
+				{(page_no - 1) * page_size, page_size})
+		elseif topic_type == "recent-reply" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" order by t.last_reply_time desc limit ?,?",
+				{(page_no - 1) * page_size, page_size})
+		elseif topic_type == "good" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.is_good=1" ..
+				" order by t.id desc limit ?,?",
+				{(page_no - 1) * page_size, page_size})
+		elseif topic_type == "noreply" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t" .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.reply_num=0 " ..
+				" order by t.id desc limit ?,?",
+				{(page_no - 1) * page_size, page_size})
+		end
+	end
+
+	if not res or err or type(res) ~= "table" or #res <= 0 then
+		return {}
+	else
+		return res
+	end
+end
+
+function topic_model:get_all(topic_type, category, page_no, page_size)
+	page_no = tonumber(page_no)
+	page_size = tonumber(page_size)
+	category = tonumber(category)
+	if page_no < 1 then 
+		page_no = 1
+	end
+
+	local res, err 
+
+	if category ~= 0 then
+		if topic_type == "default" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.category_id=?" ..
+				" order by t.id desc limit ?,?",
+				{category, (page_no - 1) * page_size, page_size})
+		elseif topic_type == "recent-reply" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.category_id=?" ..
+				" order by t.last_reply_time desc limit ?,?",
+				{category, (page_no - 1) * page_size, page_size})
+		elseif topic_type == "good" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.is_good=1 and t.category_id=?" ..
+				" order by t.id desc limit ?,?",
+				{category, (page_no - 1) * page_size, page_size})
+		elseif topic_type == "noreply" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t" .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.reply_num=0 and t.category_id=?" ..
+				" order by t.id desc limit ?,?",
+				{category, (page_no - 1) * page_size, page_size})
+		end
+	else
+		if topic_type == "default" then
+			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+				" left join user u on t.user_id=u.id " ..
+				" left join category c on t.category_id=c.id " ..
+				" where t.category_id !=4 " ..
 				" order by t.id desc limit ?,?",
 				{(page_no - 1) * page_size, page_size})
 		elseif topic_type == "recent-reply" then
@@ -259,6 +336,33 @@ function topic_model:reset_last_reply(topic_id, user_id, user_name, last_reply_t
 	local now = utils.now()
 	db:query("update topic set last_reply_id=?, last_reply_name=?, last_reply_time=? where id=?", 
 		{tonumber(user_id), user_name, last_reply_time, tonumber(topic_id)})
+end
+
+function topic_model:moderator(category_id, user_id) 
+	local res, err = db:query("select count(*) as cnt from moderator where category=? and userid=?",{tonumber(category_id), tonumber(user_id)})
+
+        for k,v in pairs(res[1]) do
+	    ngx.log(ngx.ERR, v)
+	end
+
+        if err then 
+	    return false
+        end
+
+	if not res then
+   	    return false 
+	end
+
+	if  #res~=1 then
+   	    return false 
+   	end
+	ngx.log(ngx.ERR, res[1].cnt)
+        if tonumber(res[1].cnt) == 1 then 
+	    return true
+	else 
+	    return false
+	end
+
 end
 
 return topic_model

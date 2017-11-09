@@ -16,6 +16,7 @@ topics_router:get("/all", function(req, res, next)
     local total_count = topic_model:get_total_count(topic_type, category)
     local total_page = utils.total_page(total_count, page_size)
     local topics = topic_model:get_all(topic_type, category, page_no, page_size)
+    local news = topic_model:get_all(topic_type, 4 , page_no, page_size)
   
     res:json({
         success = true,
@@ -23,7 +24,8 @@ topics_router:get("/all", function(req, res, next)
             totalCount = total_count,
             totalPage = total_page,
             currentPage = page_no,
-            topics = topics
+            topics = topics,
+	    news = news
         }
     })
 end)

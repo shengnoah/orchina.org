@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Orange Gateway</title>
+  <title>Openresty China</title>
   {(meta.html)}
 </head>
 <body data-controller-name="topics">
 {(header.html)}
 
+
 <div id="main" class="main-container container">
     <div class="row">
         <div class="col-md-9">
+
+
+
+            <div class="topics panel panel-default">
+		<div class="panel-heading clearfix">社区发布</div>
+                <div class="panel-body" id="topics-body-news"></div><!-- topics news-->  
+            </div> 
+
             <div class="topics panel panel-default">
                 <div class="panel-heading clearfix">
                     <div class="filter pull-right" id="topic-type-tab"> 
@@ -20,20 +29,24 @@
                         <a id="noreply-topics-btn" href="javascript:void(0);">无人问津</a>
                     </div>
                 </div>
-                <div class="panel-body" id="topics-body"></div><!-- topics -->  
+                <div class="panel-body" id="topics-body"></div><!-- topics-news -->  
                 <div class="panel-footer clearfix" id="pagebar" style="display:none;"></div><!-- page bar -->  
             </div>
             
-            <!-- <div class="panel panel-default">
-                <div class="panel-heading">热门城市</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">历史回顾</div>
                 <div class="panel-body location-list" style="text-align:center;">
+                     <span class="name"><a href="https://con.openresty.org/cn/2017/books/OpenResty%20Commercialization%20and%20DSL%20Era%20-%20V3.pdf">OpenResty 商业化及小语言时代</a></span>
+                     <span class="name"><a href="https://openresty.org/download/videos/openresty-con-2017-v2.mp4">OpenResty 2017开发者大会录像</a></span>
+     		     <!--
                      <span class="name"><a href="/users/city/%E5%8C%97%E4%BA%AC">北京</a></span>
                      <span class="name"><a href="/users/city/%E4%B8%8A%E6%B5%B7">上海</a></span>
                      <span class="name"><a href="/users/city/%E6%9D%AD%E5%B7%9E">杭州</a></span>
                      <span class="name"><a href="/users/city/%E6%B7%B1%E5%9C%B3">深圳</a></span>
                      <span class="name"><a href="/users/city/%E5%B9%BF%E5%B7%9E">广州</a></span>
+                     -->
                 </div>
-            </div> -->
+            </div> 
         </div>
         <div class="sidebar col-md-3">
 	    <!--
@@ -43,7 +56,7 @@
                 <div class="panel-heading">新手必读</div>
                 <div class="panel-body">
 		    <p>
-		    <script type="text/javascript">var jd_union_pid="956085696";var jd_union_euid="";</script><script type="text/javascript" src="//ads-union.jd.com/static/js/union.js"></script>
+		    <script type="text/javascript">var jd_union_pid="1071448618";var jd_union_euid="";</script><script type="text/javascript" src="//ads-union.jd.com/static/js/union.js"></script>		    
 		    </p>
                     <p>群：522410959 (满) 141991731 (未满)</p>
 		    <p>
@@ -69,14 +82,21 @@
             <div class="panel panel-default">
                 <div class="panel-heading">友情连接</div>
                 <ul class="list-group" style="text-align:center">
-		    <!--
+                    <li class="list-group-item">
+                        <a href="https://openresty.org" target="_blank" rel="nofollow">
+                            <img src="/static/avatar/openresty.png" style="width: 120px; margin: 0px 0;">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://openresty.com/cn" target="_blank" rel="nofollow">
+                            <img src="/static/avatar/openresty_inc.png" style="width: 120px; margin: 0px 0;">
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://ruby-china.org" target="_blank" rel="nofollow">
                             <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
                         </a>
                     </li>
-                    -->
-		    <!--
                     <li class="list-group-item">
                         <a href="http://cnodejs.org" rel="nofollow" title="CNode 平台" target="_blank">
                             <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
@@ -87,38 +107,26 @@
                             <img src="/static/community/epubit.png" style="width:120px; margin:6px 0;">
                         </a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="http://golangtc.com/" rel="nofollow" title="Golang 中国" target="_blank">
-                            <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="http://segmentfault.com" target="_blank" rel="nofollow">
-                            <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
-                        </a>
-                    </li>
-                    -->
                 </ul>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">推荐 OpenResty 资源</div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="http://community.xabcloud.com//">悠云 一体化Ops平台</a>
+                    <li class="list-group-item"><a href="https://www.openresty.org/">Openresty官网</a>
                     </li>
-                    <li class="list-group-item"><a href="https://www.openresty.com.cn/">Openresty中文编程</a>
+
+                    <li class="list-group-item"><a href="https://www.openresty.com/">Openresty Edge</a>
                     </li>
-		    <li class="list-group-item"><a href="http://sumory.com">Sumory's Lab</a>
+
+                    <li class="list-group-item"><a href="http://con.openresty.org/cn/2016/">Openresty大会2016</a>
+		    </li>
+
+                    <li class="list-group-item"><a href="http://con.openresty.org/cn/2017/">Openresty大会2017</a>
+		    </li>
+
+                    <li class="list-group-item"><a href="https://www.openresty.com.cn/">Openresty编程</a>
                     </li>
-                    <li class="list-group-item"><a href="https://github.com/sumory/lor">LOR框架</a>
-                    </li>
-                    <li class="list-group-item"><a href="https://yufan.me">且听书吟 </a>
-                    </li>
-                    <li class="list-group-item"><a href="http://www.candylab.net">糖果实验室</a>
-                    </li>
-                    <li class="list-group-item"><a href="https://liusha.me">liusha.me</a>
-                    </li>
-                    <li class="list-group-item"><a href="http://blog.soul11201.com/">soul11201</a>
-                    </li>
+
                 </ul>
             </div>
             <div class="panel panel-default">
@@ -138,6 +146,45 @@
 
 <script id="topic-item-tpl" type="text/template">
     {@each topics as t}
+        <div class="topic media">
+            <div class="avatar media-left">
+                <a href="/user/${t.user_name}/index">
+                    <img class="media-object avatar-48" src="/static/avatar/${t.avatar}">
+                </a>
+            </div>
+
+            <div class="infos media-body">
+                <div class="title media-heading"> 
+                    <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                    <!-- <i class="fa fa-thumb-tack" title="置顶"></i> -->
+
+                    {@if t.is_good==1 }
+                        <i title="精华帖" class="fa fa-diamond"></i>
+                    {@/if}
+                </div>
+                <div class="info"> 
+                    {@if t.category_id!=0}
+                        <a class="node" href="/category/${t.category_id}">${t.category_name}</a> •
+                    {@/if}
+                    &nbsp;<a href="/user/${t.user_name}/index">${t.user_name}</a> 发布于 ${t.create_time}
+                    • ${t.view_num} 次浏览
+                    {@if t.last_reply_id!=0}
+                        <span class="hidden-mobile">
+                          • 最后由 <a href="/user/${t.last_reply_name}/index">${t.last_reply_name}</a> 于 ${t.last_reply_time} 回复
+                        </span>
+                    {@/if}
+                </div>
+            </div>
+            <div class="count media-right">
+                <a class="state-false" href="/topic/${t.id}/view#replies">${t.reply_num}</a>
+            </div>
+        </div>
+    {@/each}
+</script>
+
+
+<script id="topic-item-tpl-news" type="text/template">
+    {@each news as t}
         <div class="topic media">
             <div class="avatar media-left">
                 <a href="/user/${t.user_name}/index">
@@ -186,7 +233,10 @@
             nav = "nav-ask";
         }else if(current_category == "3"){
             nav = "nav-app";
+        }else if(current_category == "4"){
+            nav = "nav-news";
         }
+
 
         APP.Common.resetNav(nav);
         APP.Index.init(current_category);

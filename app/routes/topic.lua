@@ -146,6 +146,16 @@ topic_router:post("/new", function(req, res, next)
     local user_id = user.userid
     local user_name = user.username or ""
 
+    local moderator = topic_model:moderator(category_id, user_id) 
+    ngx.log(ngx.ERR, moderator)
+    if not moderator then
+        return res:json({
+            success = false,
+            msg = "非版主不能发表文章。"
+        })
+    end
+
+
     if not user_id then
         return res:json({
             success = false,

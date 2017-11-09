@@ -43,7 +43,7 @@ common_router.settings = function(req, res, next)
 end
 
 common_router.index = function(req, res, next)
-    local current_category = 0
+    local current_category = 0 
     topics_category_handler(current_category, req, res, next)
 end
 
@@ -59,6 +59,11 @@ end
 
 common_router.app = function(req, res, next)
      local current_category = 3
+     topics_category_handler(current_category, req, res, next)
+end
+
+common_router.news = function(req, res, next)
+     local current_category = 4 
      topics_category_handler(current_category, req, res, next)
 end
 
